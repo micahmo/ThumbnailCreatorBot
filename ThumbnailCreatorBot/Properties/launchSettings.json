@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ThumbnailCreatorBot": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
