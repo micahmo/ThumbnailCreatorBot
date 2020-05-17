@@ -249,3 +249,6 @@ ModelManifest.xml
 
 # Ignore the font files. These should be copied as part of the build
 */fonts/*
+
+# Ignore any temporary image files that are created
+*.png

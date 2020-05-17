@@ -330,7 +330,7 @@ namespace ThumbnailCreatorBot
                             chatId: chatId,
                             text: Resources.SelectAFont,
                             replyMarkup: new InlineKeyboardMarkup(
-                                Utilities.Fonts.Families.Select(x => new InlineKeyboardButton {Text = x.Name, CallbackData = x.Name}).ToList().To2DList(3)
+                                Utilities.Fonts.Families.Select(x => new InlineKeyboardButton {Text = x.Name, CallbackData = x.Name}).OrderBy(x => x.Text).ToList().To2DList(3)
                             )
                         );
 

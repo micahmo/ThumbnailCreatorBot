@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <Reference Include="mdm.Extensions">
-      <HintPath>..\..\mdm.Extensions\mdm.Extensions\mdm.Extensions\bin\Release\netstandard2.0\mdm.Extensions.dll</HintPath>
+      <HintPath>..\..\..\mdm.Extensions\mdm.Extensions\mdm.Extensions\bin\Release\netstandard2.0\mdm.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
 
