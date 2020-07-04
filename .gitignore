@@ -252,3 +252,6 @@ ModelManifest.xml
 
 # Ignore any temporary image files that are created
 *.png
+
+# Do not add the token file to source control
+token.txt

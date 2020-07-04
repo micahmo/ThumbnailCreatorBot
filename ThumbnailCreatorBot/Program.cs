@@ -14,6 +14,7 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using File = System.IO.File;
 
 namespace ThumbnailCreatorBot
 {
@@ -30,7 +31,7 @@ namespace ThumbnailCreatorBot
 
             _startDateTime = DateTimeOffset.UtcNow;
 
-            _botClient = new TelegramBotClient("1213281745:AAGv5eXCiANeEd1oE-Yb7t5ODAJildGq96g");
+            _botClient = new TelegramBotClient(File.ReadAllLines("token.txt")[0]);
 
             _botClient.OnMessage += Bot_OnMessage;
             _botClient.OnCallbackQuery += Bot_OnCallbackQuery;
