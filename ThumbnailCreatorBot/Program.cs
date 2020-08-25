@@ -32,6 +32,7 @@ namespace ThumbnailCreatorBot
             _startDateTime = DateTimeOffset.UtcNow;
 
             _botClient = new TelegramBotClient(File.ReadAllLines("token.txt")[0]);
+            _micahmo = Convert.ToInt32(File.ReadAllLines("micahmo.txt")[0]);
 
             _botClient.OnMessage += Bot_OnMessage;
             _botClient.OnCallbackQuery += Bot_OnCallbackQuery;
@@ -585,7 +586,7 @@ namespace ThumbnailCreatorBot
         private static ITelegramBotClient _botClient;
         private static Exception _lastException;
         private static readonly Dictionary<long, ThumbnailData> _data = new Dictionary<long, ThumbnailData>();
-        private static readonly ChatId _micahmo = 76034823;
+        private static ChatId _micahmo;
 
         private static readonly InlineKeyboardButton _addTextKeyboardButton = new InlineKeyboardButton {Text = Resources.AddText, CallbackData = Resources.AddText};
         private static readonly InlineKeyboardButton _cancelKeyboardButton = new InlineKeyboardButton {Text = Resources.Cancel, CallbackData = Resources.Cancel};
