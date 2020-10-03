@@ -17,7 +17,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace ThumbnailCreatorBot
 {
-    class Program
+    public class Program
     {
         #region Main method
 
