@@ -21,7 +21,7 @@ namespace ThumbnailCreatorBot
     {
         #region Main method
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             _startDateTime = DateTimeOffset.UtcNow;
 
