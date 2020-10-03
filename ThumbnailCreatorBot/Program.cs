@@ -17,11 +17,11 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace ThumbnailCreatorBot
 {
-    public class Program
+    class Program
     {
         #region Main method
 
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             _startDateTime = DateTimeOffset.UtcNow;
 
