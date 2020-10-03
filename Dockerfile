@@ -19,6 +19,6 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 WORKDIR /app/fonts
-COPY ThumbnailCreatorBot/fonts/* .
+COPY ThumbnailCreatorBot/fonts/* ./
 
 ENTRYPOINT ["dotnet", "ThumbnailCreatorBot.dll"]
