@@ -247,12 +247,8 @@ ModelManifest.xml
 # Test config files
 /test_files
 
-# Ignore the font files. These should be copied as part of the build
-*/fonts/*
-
 # Ignore any temporary image files that are created
 *.png
 
-# Do not add the token file to source control
-token.txt
-micahmo.txt
+# Do not include .env (environment-specific)
+*.env

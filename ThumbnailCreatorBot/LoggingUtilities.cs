@@ -17,16 +17,23 @@ namespace ThumbnailCreatorBot
         {
             string directoryToLog = Path.Combine(Directory.GetCurrentDirectory(), subDirectory);
 
-            Console.WriteLine($"Files in '{directoryToLog}':");
-            foreach (var file in Directory.EnumerateFiles(directoryToLog))
+            if (Directory.Exists(directoryToLog) == false)
             {
-                Console.WriteLine(file);
+                Console.WriteLine($"Directory '{directoryToLog}' does not exist.");
             }
-
-            Console.WriteLine($"Directories in '{directoryToLog}':");
-            foreach (var directory in Directory.EnumerateDirectories(directoryToLog))
+            else
             {
-                Console.WriteLine(directory);
+                Console.WriteLine($"Files in '{directoryToLog}':");
+                foreach (var file in Directory.EnumerateFiles(directoryToLog))
+                {
+                    Console.WriteLine(file);
+                }
+
+                Console.WriteLine($"Directories in '{directoryToLog}':");
+                foreach (var directory in Directory.EnumerateDirectories(directoryToLog))
+                {
+                    Console.WriteLine(directory);
+                }
             }
 
             Console.WriteLine("-----");

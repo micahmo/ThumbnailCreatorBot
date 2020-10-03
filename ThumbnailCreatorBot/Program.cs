@@ -14,7 +14,6 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using File = System.IO.File;
 
 namespace ThumbnailCreatorBot
 {
@@ -24,15 +23,31 @@ namespace ThumbnailCreatorBot
 
         static void Main(string[] args)
         {
+            _startDateTime = DateTimeOffset.UtcNow;
+
+            string botTokenEnv = Environment.GetEnvironmentVariable("BOT_TOKEN");
+            if (string.IsNullOrEmpty(botTokenEnv))
+            {
+                Console.WriteLine("Error retrieving Telegram bot token. Be sure to set BOT_TOKEN environment variable. " +
+                                  "If running from Visual Studio, set the env vars in settings.env");
+                return;
+            }
+
+            string chatIdEnv = Environment.GetEnvironmentVariable("CHAT_ID");
+            if (string.IsNullOrEmpty(chatIdEnv))
+            {
+                Console.WriteLine("Error retrieving chat ID. Be sure to set CHAT_ID environment variable. " +
+                                  "If running from Visual Studio, set the env vars in settings.env");
+                return;
+            }
+
             LoadFonts();
             LoggingUtilities.LogDir();
             LoggingUtilities.LogDir("fonts");
             LoggingUtilities.LogFonts();
 
-            _startDateTime = DateTimeOffset.UtcNow;
-
-            _botClient = new TelegramBotClient(File.ReadAllLines("token.txt")[0]);
-            _micahmo = Convert.ToInt32(File.ReadAllLines("micahmo.txt")[0]);
+            _botClient = new TelegramBotClient(botTokenEnv);
+            _chatId = Convert.ToInt32(chatIdEnv);
 
             _botClient.OnMessage += Bot_OnMessage;
             _botClient.OnCallbackQuery += Bot_OnCallbackQuery;
@@ -62,7 +77,7 @@ namespace ThumbnailCreatorBot
                     {
                         // Send the exception to micahmo
                         await _botClient.SendTextMessageAsync(
-                            chatId: _micahmo,
+                            chatId: _chatId,
                             text: $"Error reported by user '{chatUsername}'.\n\n" +
                                   $"<code>{_lastException}</code>",
                             parseMode: ParseMode.Html
@@ -79,12 +94,12 @@ namespace ThumbnailCreatorBot
                     _lastException = null;
                 }
 
-                else if (messageText == "/status" && chatId.Identifier == _micahmo.Identifier)
+                else if (messageText == "/status" && chatId.Identifier == _chatId.Identifier)
                 {
                     var startTimeInEt = TimeZoneInfo.ConvertTime(_startDateTime, GetEasternTimeZone());
 
                     await _botClient.SendTextMessageAsync(
-                        chatId: _micahmo,
+                        chatId: _chatId,
                         text: $"Status is good. Running on host '{Environment.MachineName}' (platform is {GetOsPlatform()}). Uptime is {DateTimeOffset.UtcNow - _startDateTime} " +
                               $"(since {startTimeInEt})",
                         parseMode: ParseMode.Html
@@ -513,11 +528,24 @@ namespace ThumbnailCreatorBot
         {
             FontCollection fonts = new FontCollection();
 
-            foreach (var font in Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "fonts"))
-                .Where(file => Path.GetExtension(file).EndsWith("ttf") || Path.GetExtension(file).EndsWith("otf")))
+            try
             {
-                try { fonts.Install(font); }
-                catch { /* Don't let a font load failure kill us.*/ }
+                foreach (var font in Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "fonts"))
+                    .Where(file => Path.GetExtension(file).EndsWith("ttf") || Path.GetExtension(file).EndsWith("otf")))
+                {
+                    try
+                    {
+                        fonts.Install(font);
+                    }
+                    catch
+                    {
+                        /* Don't let a font load failure kill us.*/
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading fonts: {ex}");
             }
 
             Utilities.Fonts = fonts;
@@ -586,7 +614,7 @@ namespace ThumbnailCreatorBot
         private static ITelegramBotClient _botClient;
         private static Exception _lastException;
         private static readonly Dictionary<long, ThumbnailData> _data = new Dictionary<long, ThumbnailData>();
-        private static ChatId _micahmo;
+        private static ChatId _chatId;
 
         private static readonly InlineKeyboardButton _addTextKeyboardButton = new InlineKeyboardButton {Text = Resources.AddText, CallbackData = Resources.AddText};
         private static readonly InlineKeyboardButton _cancelKeyboardButton = new InlineKeyboardButton {Text = Resources.Cancel, CallbackData = Resources.Cancel};
