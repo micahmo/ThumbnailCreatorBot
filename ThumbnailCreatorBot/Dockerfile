@@ -5,7 +5,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["ThumbnailCreatorBot/ThumbnailCreatorBot.csproj", "ThumbnailCreatorBot/"]
+COPY ["ThumbnailCreatorBot.csproj", "ThumbnailCreatorBot/"]
 RUN dotnet restore "ThumbnailCreatorBot/ThumbnailCreatorBot.csproj"
 COPY . .
 WORKDIR "/src/ThumbnailCreatorBot"
