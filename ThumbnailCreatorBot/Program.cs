@@ -36,7 +36,7 @@ namespace ThumbnailCreatorBot
             string chatIdEnv = Environment.GetEnvironmentVariable("CHAT_ID");
             if (string.IsNullOrEmpty(chatIdEnv))
             {
-                Console.WriteLine("Error retrieving chat ID. Be sure to set CHAT_ID environment variable. " +
+                Console.WriteLine("Info: No chat ID found. Set the CHAT_ID environment variable to support the /status command. " +
                                   "If running from Visual Studio, set the env vars in settings.env");
                 return;
             }
