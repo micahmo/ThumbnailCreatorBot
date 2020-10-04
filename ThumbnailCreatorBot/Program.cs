@@ -38,7 +38,6 @@ namespace ThumbnailCreatorBot
             {
                 Console.WriteLine("Info: No chat ID found. Set the CHAT_ID environment variable to support the /status command. " +
                                   "If running from Visual Studio, set the env vars in settings.env");
-                return;
             }
 
             LoadFonts();
