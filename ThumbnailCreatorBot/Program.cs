@@ -32,22 +32,26 @@ namespace ThumbnailCreatorBot
                                   "If running from Visual Studio, set the env vars in settings.env");
                 return;
             }
+            else
+            {
+                _botClient = new TelegramBotClient(botTokenEnv);
+            }
 
             string chatIdEnv = Environment.GetEnvironmentVariable("CHAT_ID");
             if (string.IsNullOrEmpty(chatIdEnv))
             {
-                Console.WriteLine("Error retrieving chat ID. Be sure to set CHAT_ID environment variable. " +
+                Console.WriteLine("Warning: No chat ID found. Set the CHAT_ID environment variable to support the /status command. " +
                                   "If running from Visual Studio, set the env vars in settings.env");
-                return;
+            }
+            else
+            {
+                _chatId = Convert.ToInt32(chatIdEnv);
             }
 
             LoadFonts();
             LoggingUtilities.LogDir();
             LoggingUtilities.LogDir("fonts");
             LoggingUtilities.LogFonts();
-
-            _botClient = new TelegramBotClient(botTokenEnv);
-            _chatId = Convert.ToInt32(chatIdEnv);
 
             _botClient.OnMessage += Bot_OnMessage;
             _botClient.OnCallbackQuery += Bot_OnCallbackQuery;
@@ -73,9 +77,9 @@ namespace ThumbnailCreatorBot
                 // Handle case where user experienced exception and said 'y' to reporting it.
                 if (_lastException.IsNotNull())
                 {
-                    if (messageText?.Trim().ToLower() == "y")
+                    if (messageText?.Trim().ToLower() == "y" && _chatId is { })
                     {
-                        // Send the exception to micahmo
+                        // Send the exception to the special chat ID
                         await _botClient.SendTextMessageAsync(
                             chatId: _chatId,
                             text: $"Error reported by user '{chatUsername}'.\n\n" +
@@ -94,7 +98,7 @@ namespace ThumbnailCreatorBot
                     _lastException = null;
                 }
 
-                else if (messageText == "/status" && chatId.Identifier == _chatId.Identifier)
+                else if (messageText == "/status" && chatId.Identifier == _chatId?.Identifier)
                 {
                     var startTimeInEt = TimeZoneInfo.ConvertTime(_startDateTime, GetEasternTimeZone());
 
