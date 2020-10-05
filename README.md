@@ -19,6 +19,7 @@ Runs in Linux Docker container.
 ## Development
 With Visual Studio and Docker Desktop installed, clone the repository and open in Visual Studio. Run using the "Docker" option in Visual Studio. It will automatically create and run a Docker container which can be inspected and debugged from Visual Studio.
 
+To set environment variables, rename (or copy) the `settings.env.sample` file to `settings.env` and enter the desired values.
 
 ## Deployment
 To run outside of a development environment, use `docker run` to pull and set up the image from Docker Hub.
