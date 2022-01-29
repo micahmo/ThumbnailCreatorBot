@@ -37,7 +37,7 @@ Use the Unraid container template to easily configure and run on an Unraid serve
 
 - In Unraid, go to the Docker tab.
 - Scroll to the bottom and edit the "Template Repositories" area.
-- Add `https://github.com/micahmo/docker-templates` on a new line and press Save.
+- Add `https://github.com/micahmo/ThumbnailCreatorBot` on a new line and press Save.
 - Choose Add Container.
 - In the Template drop down, choose `ThumbnailCreatorBot` from the list.
 - Set variables as desired and Apply.
