@@ -29,7 +29,7 @@ docker run -d \
   --net=host \
   -e BOT_TOKEN=<your_bot_token> \
   -e CHAT_ID=<your_chat_ID_optional> \
-  micahmo/thumbnailcreatorbot
+  ghcr.io/micahmo/thumbnailcreatorbot
 ```
 
 ## Unraid
