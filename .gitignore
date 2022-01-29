@@ -249,6 +249,8 @@ ModelManifest.xml
 
 # Ignore any temporary image files that are created
 *.png
+# Except for the docker template image
+!thumbnailcreatorbot-icon.png
 
 # Do not include .env (environment-specific)
 *.env
