@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="mdm.Extensions" Version="1.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-rc0001" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.8" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0008" />
     <PackageReference Include="Telegram.Bot" Version="15.5.1" />
   </ItemGroup>
